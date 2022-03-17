@@ -1,8 +1,9 @@
-import { NOT_RECEIVE_ORDERS, RECEIVE_ORDERS, REQUEST_ORDERS } from "../constants/actionTypes";
+import { NOT_RECEIVE_ORDERS, RECEIVE_ORDERS, REQUEST_ORDERS, SELECT_ORDER } from "../constants/actionTypes";
 
 export default function orders(
   state = {
     orders: [],
+    selectedOrder: null,
     isFetching: false,
     errors: null,
   },
@@ -27,6 +28,12 @@ export default function orders(
         ...state,
         isFetching: false,
         error: action.error,
+      };
+
+      case SELECT_ORDER:
+      return {
+        ...state,
+        selectedOrder: action.order
       };
 
     default:

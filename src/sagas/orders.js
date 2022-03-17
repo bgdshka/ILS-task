@@ -1,9 +1,9 @@
-import { takeEvery, put, call, fork, select } from "redux-saga/effects";
-import Api from "../api/api";
+import { takeEvery, put, call } from "redux-saga/effects";
 import * as types from "../constants/actionTypes";
+import { ordersMock } from "../constants/mocks";
 
 function apiCallToFetchOrders() {
-  return Promise.resolve("OK");
+  return Promise.resolve(ordersMock);
 }
 
 export function* getOrders(action) {

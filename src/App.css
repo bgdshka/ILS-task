@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 .App {
   display: flex;
@@ -6,14 +6,20 @@
   width: 100%;
   height: 100%;
   margin: 0;
-  padding:0;
+  padding: 0;
 }
 
-
-html, body, #root, #mapId {
+html,
+body,
+#root,
+#mapId {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding:0;
+  padding: 0;
+}
 
+.ant-table-wrapper {
+  overflow-y: auto;
+  height: 100%;
 }
