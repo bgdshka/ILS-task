@@ -8,7 +8,7 @@ const Map = (props) => {
       doubleClickZoom={false}
       id="mapId"
       zoom={14}
-      center={[33.5024, 36.2988]}
+      center={[37.6202, 55.739777018041174]}
     >
       <TileLayer
         url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
