@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+    using: "composite"
     steps:
       - name: Setup...
       - uses: actions/checkout@v2
