@@ -4,7 +4,7 @@ export const ordersMock = [
     order: "Заказ #123",
     start: [55.7353656, 37.6518091],
     finish: [55.7352942, 37.6190595],
-    tags: ["Ценный груз", "Хрупкие вещи"],
+    tags: ["Хрупкие вещи"],
   },
   {
     key: "2",
@@ -32,7 +32,7 @@ export const ordersMock = [
     order: "Заказ #127",
     start: [55.7353656, 37.6318091],
     finish: [55.7364056, 37.6700895],
-    tags: ["Ценный груз", "Хрупкие вещи"],
+    tags: ["Ценный груз"],
   },
   {
     key: "6",
@@ -73,3 +73,9 @@ export const ordersMock = [
 
 // MSK
 export const DEFAULT_COORDS = [55.7522, 37.6156];
+
+export const mapPoints = [
+  { key: 1, name: "Склад 1", coords: [55.7152942, 37.6390595] },
+  { key: 2, name: "Склад 2", coords: [55.792942, 37.6190595] },
+  { key: 3, name: "Склад 3", coords: [55.792942, 37.6890595] },
+];

@@ -5,88 +5,103 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as ordersActions from "../../actions/orders";
 import "antd/dist/antd.css";
+import { mapPoints } from "../../constants/mocks";
 
 const { Option } = Select;
 
-const mapPoints = [
-  { id: 1, name: "Склад 1", coords: [55.7152942, 37.6390595] },
-  { id: 2, name: "Склад 2", coords: [55.792942, 37.6190595] },
-  { id: 3, name: "Склад 3", coords: [55.792942, 37.6890595] },
-];
+const getColumns = handleChangeAddress => {
+  const columns = [
+    {
+      title: "Order",
+      dataIndex: "order",
+      key: "order",
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: "Start",
+      dataIndex: "start",
+      key: "start",
+      render: (coords, record) => {
+        const defaultCoordsString = coords.join(", ");
+        return (
+          <div>
+            <Select
+              defaultValue={defaultCoordsString}
+              onChange={value =>
+                handleChangeAddress({
+                  orderKey: record.key,
+                  column: "start",
+                  coordinates: value.split(", "),
+                })
+              }
+            >
+              <Option value={defaultCoordsString}>{defaultCoordsString}</Option>
+              {mapPoints.map(point => (
+                <Option key={point.key} value={point.coords.join(", ")}>
+                  {point.name}
+                </Option>
+              ))}
+            </Select>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Finish",
+      dataIndex: "finish",
+      key: "finish",
+      render: (coords, record) => {
+        const defaultCoordsString = coords.join(", ");
+        return (
+          <div>
+            <Select
+              defaultValue={defaultCoordsString}
+              onChange={value =>
+                handleChangeAddress({
+                  orderKey: record.key,
+                  column: "finish",
+                  coordinates: value.split(", "),
+                })
+              }
+            >
+              <Option value={defaultCoordsString}>{defaultCoordsString}</Option>
+              {mapPoints.map(point => (
+                <Option key={point.key} value={point.coords.join(", ")}>
+                  {point.name}
+                </Option>
+              ))}
+            </Select>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      render: (tags, record) => {
+        return tags.map(tag => (
+          <Tag color={tag === "Экспресс" ? "red" : "green"} key={tag}>
+            {tag.toUpperCase()}
+          </Tag>
+        ));
+      },
+    },
+  ];
 
-const columns = [
-  {
-    title: "Order",
-    dataIndex: "order",
-    key: "order",
-    render: text => <a>{text}</a>,
-  },
-  {
-    title: "Start",
-    dataIndex: "start",
-    key: "start",
-    render: coords => {
-      const defaultCoordsString = coords.join(", ");
-      return (
-        <div>
-          <Select
-            defaultValue={defaultCoordsString}
-            onChange={value => console.log("value", value)}
-          >
-            <Option value={defaultCoordsString}>{defaultCoordsString}</Option>
-            {mapPoints.map(point => (
-              <Option key={point.id} value={point.coords.join(", ")}>
-                {point.name}
-              </Option>
-            ))}
-          </Select>
-        </div>
-      );
-    },
-  },
-  {
-    title: "Finish",
-    dataIndex: "finish",
-    key: "finish",
-    render: coords => {
-      const defaultCoordsString = coords.join(", ");
-      return (
-        <div>
-          <Select
-            defaultValue={defaultCoordsString}
-            onChange={value => console.log("value", value)}
-          >
-            <Option value={defaultCoordsString}>{defaultCoordsString}</Option>
-            {mapPoints.map(point => (
-              <Option key={point.id} value={point.coords.join(", ")}>
-                {point.name}
-              </Option>
-            ))}
-          </Select>
-        </div>
-      );
-    },
-  },
-  {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (tags, record) => {
-      return tags.map(tag => (
-        <Tag color={tag === "Экспресс" ? "red" : "green"} key={tag}>
-          {tag.toUpperCase()}
-        </Tag>
-      ));
-    },
-  },
-];
+  return columns;
+};
 
-const Sidebar = ({ orders, ordersActions: { getOrders, selectOrder } }) => {
+const Sidebar = ({ orders, ordersActions: { getOrders, selectOrder, changeAddress } }) => {
   const [width, setWidth] = React.useState(300);
 
   useEffect(() => {
     getOrders();
   }, []);
+
+  const handleChangeAddress = ({ orderKey, column, coordinates }) => {
+    changeAddress({ orderKey, column, coordinates });
+  };
 
   return (
     <Resizable
@@ -107,22 +122,16 @@ const Sidebar = ({ orders, ordersActions: { getOrders, selectOrder } }) => {
       }}
     >
       <Table
-        columns={columns}
+        columns={getColumns(handleChangeAddress)}
         dataSource={orders}
         pagination={{ position: ["none", "none"] }}
         scroll={{ x: "max-content" }}
         rowSelection={{
           type: "radio",
           onChange: (selectedRowKey, selectedRows) => {
+            console.log(selectedRows);
             selectOrder(selectedRows[0]);
           },
-        }}
-        onRow={(record, rowIndex) => {
-          return {
-            onClick: event => {
-              console.log(record, rowIndex);
-            },
-          };
         }}
       />
     </Resizable>

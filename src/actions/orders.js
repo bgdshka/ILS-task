@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from "../constants/actionTypes";
 
 export function getOrders() {
   return {
@@ -9,6 +9,15 @@ export function getOrders() {
 export function selectOrder(order) {
   return {
     type: types.SELECT_ORDER,
-    order
+    order,
+  };
+}
+
+export function changeAddress({ orderKey, column, coordinates }) {
+  return {
+    type: types.CHANGE_ORDER_ADDRESS,
+    orderKey,
+    column,
+    coordinates,
   };
 }
