@@ -1,0 +1,13 @@
+.Map__LegendButton {
+    z-index: 1000;
+    right: 0;
+    position: absolute;
+}
+
+.leaflet-routing-alternatives-container {
+    display: none;
+}
+
+.leaflet-control {
+    margin-top: 40px !important;
+}
