@@ -6,5 +6,8 @@ yarn start
 Для сборки проекта
 yarn build
 
+Для старта сервера отдачи статики
+yarn start:prod
+
 Для unit тестов
 yarn test:unit
