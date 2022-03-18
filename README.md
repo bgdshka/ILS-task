@@ -11,3 +11,5 @@ yarn start:prod
 
 ### Для unit тестов
 yarn test:unit
+
+Деплой - https://ils-task.surge.sh/
