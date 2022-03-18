@@ -37,12 +37,11 @@ const columns = [
   },
 ];
 
-
-const Sidebar = ({ orders, ordersActions }) => {
+const Sidebar = ({ orders, ordersActions: { getOrders, selectOrder } }) => {
   const [width, setWidth] = React.useState(300);
 
   useEffect(() => {
-    ordersActions.getOrders();
+    getOrders();
   }, []);
 
   return (
@@ -71,7 +70,7 @@ const Sidebar = ({ orders, ordersActions }) => {
         rowSelection={{
           type: "radio",
           onChange: (selectedRowKey, selectedRows) => {
-            ordersActions.selectOrder(selectedRows[0]);
+            selectOrder(selectedRows[0]);
           },
         }}
         onRow={(record, rowIndex) => {

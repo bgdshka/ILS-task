@@ -10,6 +10,7 @@
     "antd": "^4.19.2",
     "leaflet": "^1.7.1",
     "leaflet-routing-machine": "^3.2.12",
+    "prettier": "^2.6.0",
     "re-resizable": "^6.9.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -32,6 +33,14 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all",
+    "arrowParens": "avoid",
+    "endOfLine": "auto"
   },
   "browserslist": {
     "production": [

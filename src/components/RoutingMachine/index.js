@@ -3,7 +3,6 @@ import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 
 const createRoutineMachineLayer = ({ selectedOrder }) => {
-  console.log("createRoutineMachineLayer", selectedOrder);
   const points = selectedOrder
     ? [
         L.latLng(selectedOrder.start[0], selectedOrder.start[1]),
@@ -23,7 +22,6 @@ const createRoutineMachineLayer = ({ selectedOrder }) => {
     fitSelectedRoutes: true,
     showAlternatives: false,
   });
-
   return instance;
 };
 
