@@ -49,7 +49,8 @@ export default function orders(
       return {
         ...state,
         orders: newOrders,
-        selectedOrder: newOrders.find(order => order.key === state.selectedOrder.key),
+        selectedOrder:
+          state.selectedOrder ? newOrders.find(order => order.key === state.selectedOrder.key) : null,
       };
 
     default:

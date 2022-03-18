@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import * as ordersActions from "../../actions/orders";
 import "antd/dist/antd.css";
 import { mapPoints } from "../../constants/mocks";
+import { arraysEqual } from "../../functions/arrays";
 
 const { Option } = Select;
 
@@ -22,11 +23,11 @@ const getColumns = handleChangeAddress => {
       dataIndex: "start",
       key: "start",
       render: (coords, record) => {
-        const defaultCoordsString = coords.join(", ");
+        const coordsString = coords.join(", ");
         return (
           <div>
             <Select
-              defaultValue={defaultCoordsString}
+              defaultValue={coordsString}
               onChange={value =>
                 handleChangeAddress({
                   orderKey: record.key,
@@ -35,8 +36,8 @@ const getColumns = handleChangeAddress => {
                 })
               }
             >
-              <Option value={defaultCoordsString}>{defaultCoordsString}</Option>
               {mapPoints.map(point => (
+                !arraysEqual(point.coords, record.finish.map(elem => Number(elem))) &&
                 <Option key={point.key} value={point.coords.join(", ")}>
                   {point.name}
                 </Option>
@@ -51,11 +52,11 @@ const getColumns = handleChangeAddress => {
       dataIndex: "finish",
       key: "finish",
       render: (coords, record) => {
-        const defaultCoordsString = coords.join(", ");
+        const coordsString = coords.join(", ");
         return (
           <div>
             <Select
-              defaultValue={defaultCoordsString}
+              defaultValue={coordsString}
               onChange={value =>
                 handleChangeAddress({
                   orderKey: record.key,
@@ -64,12 +65,14 @@ const getColumns = handleChangeAddress => {
                 })
               }
             >
-              <Option value={defaultCoordsString}>{defaultCoordsString}</Option>
-              {mapPoints.map(point => (
-                <Option key={point.key} value={point.coords.join(", ")}>
-                  {point.name}
-                </Option>
-              ))}
+              {mapPoints.map(
+                point =>
+                  !arraysEqual(point.coords, record.start.map(elem => Number(elem))) && (
+                    <Option key={point.key} value={point.coords.join(", ")}>
+                      {point.name} 
+                    </Option>
+                  ),
+              )}
             </Select>
           </div>
         );
@@ -124,12 +127,11 @@ const Sidebar = ({ orders, ordersActions: { getOrders, selectOrder, changeAddres
       <Table
         columns={getColumns(handleChangeAddress)}
         dataSource={orders}
-        pagination={{ position: ["none", "none"] }}
+        pagination={{ position: ["none", "bottomLeft"] }}
         scroll={{ x: "max-content" }}
         rowSelection={{
           type: "radio",
           onChange: (selectedRowKey, selectedRows) => {
-            console.log(selectedRows);
             selectOrder(selectedRows[0]);
           },
         }}
