@@ -25,4 +25,4 @@ jobs:
 
       - name: Running tests
           shell: bash
-          run: yarn test:unit $TO_TEST
+          run: yarn test:unit
