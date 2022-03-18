@@ -1,0 +1,14 @@
+{
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  },
+  "moduleFileExtensions": [
+    "js",
+    "json"
+  ],
+  "rootDir": ".",
+  "testRegex": ".*/tests/.*\\.spec\\.js$",
+  "coverageReporters": ["json", "html"],
+  "coverageDirectory": "<rootDir>/coverage/",
+  "collectCoverageFrom": ["src/**/*.js", "!src/components/**", "!src/test/**"]
+}
